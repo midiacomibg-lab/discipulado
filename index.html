@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Discipulado – Bíblia de Estudo do Discipulado</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0B223B;
+      --navy-light: #133154;
+      --lime: #D7DF23;
+      --lime-hover: #c5cd1c;
+      --lime-soft: #C2D36A;
+      --dark-gray: #383F3E;
+      --mid-gray: #606162;
+      --bg-body: #f4f6f8;
+      --bg-card: #ffffff;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 4px 16px rgba(11, 34, 59, 0.06);
+      --shadow-hover: 0 12px 28px rgba(11, 34, 59, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-body);
+      color: var(--dark-gray);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Principal */
+    header.hero-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #071729 100%);
+      color: #ffffff;
+      padding: 36px 20px 44px;
+      border-bottom: 4px solid var(--lime);
+      box-shadow: 0 4px 14px rgba(11, 34, 59, 0.18);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero-top-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .hero-logo {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.92;
+      flex-shrink: 0;
+    }
+
+    .badge-top {
+      display: inline-block;
+      background: rgba(215, 223, 35, 0.16);
+      color: var(--lime);
+      border: 1px solid rgba(215, 223, 35, 0.35);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 13px;
+      border-radius: 999px;
+      margin-bottom: 0;
+    }
+
+    header.hero-header h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    header.hero-header h1 span {
+      color: var(--lime);
+    }
+
+    header.hero-header p {
+      color: #cbd5e1;
+      font-size: 0.96rem;
+      max-width: 680px;
+    }
+
+    /* Barra Fixa Compacta ao Rolar (Sticky Top Bar) */
+    .sticky-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(11, 34, 59, 0.97);
+      backdrop-filter: blur(8px);
+      color: #ffffff;
+      border-bottom: 3px solid var(--lime);
+      box-shadow: 0 6px 20px rgba(7, 23, 41, 0.28);
+      padding: 10px 16px;
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+    }
+
+    .sticky-bar.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .sticky-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sticky-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .sticky-logo {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      opacity: 0.94;
+    }
+
+    .sticky-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sticky-title span {
+      color: var(--lime);
+    }
+
+    .sticky-action-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--lime);
+      color: var(--navy);
+      border: none;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .sticky-action-btn:hover {
+      background: var(--lime-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Espaço generoso entre o cabeçalho e "Módulos Disponíveis" */
+    main {
+      padding: 56px 0 72px;
+    }
+
+    #home-view {
+      margin-top: 12px;
+    }
+
+    /* Loading & Error States */
+    .state-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 4px solid #e2e8f0;
+      border-top-color: var(--navy);
+      border-right-color: var(--lime);
+      border-radius: 50%;
+      animation: spin 0.85s linear infinite;
+      margin: 0 auto 14px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .state-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .state-desc {
+      font-size: 0.9rem;
+      color: var(--mid-gray);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* Home View: Grid de Cursos */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sync-status {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--mid-gray);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+    }
+
+    .sync-dot.checking {
+      background: #eab308;
+      animation: pulseDot 1s ease-in-out infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .count-pill {
+      background: var(--navy);
+      color: var(--lime);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 999px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .course-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--navy);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .course-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-top-color: var(--lime);
+    }
+
+    .course-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--navy);
+      color: var(--lime);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.03em;
+      padding: 4px 10px;
+      border-radius: 7px;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .course-card h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      line-height: 1.35;
+    }
+
+    .course-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .course-card:hover .course-footer span:last-child {
+      background: var(--lime);
+      color: var(--navy);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .course-meta {
+      color: var(--mid-gray);
+      font-weight: 500;
+      font-size: 0.82rem;
+    }
+
+    /* Course Detail View */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      border: none;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(11, 34, 59, 0.14);
+      margin-bottom: 20px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--navy-light);
+      transform: translateX(-2px);
+    }
+
+    .course-header-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 6px solid var(--lime);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .course-header-box h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 6px 0 6px;
+      color: var(--navy);
+    }
+
+    .course-header-box p {
+      color: var(--mid-gray);
+      font-size: 0.94rem;
+    }
+
+    /* Accordion / Lista de Conteúdos */
+    .lessons-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .lesson-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(11, 34, 59, 0.04);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .lesson-item.open {
+      border-color: var(--navy);
+    }
+
+    .lesson-header {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .lesson-header:hover {
+      background: rgba(11, 34, 59, 0.025);
+    }
+
+    .lesson-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .lesson-number {
+      flex-shrink: 0;
+      min-width: 38px;
+      height: 38px;
+      padding: 0 8px;
+      border-radius: 10px;
+      background: var(--navy);
+      color: var(--lime);
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lesson-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .lesson-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .mini-badge {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #eef2f6;
+      color: var(--dark-gray);
+    }
+
+    .mini-badge.video {
+      background: rgba(11, 34, 59, 0.1);
+      color: var(--navy);
+    }
+
+    .mini-badge.audio {
+      background: rgba(194, 211, 106, 0.35);
+      color: var(--dark-gray);
+    }
+
+    .chevron {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      color: var(--mid-gray);
+      transition: transform 0.25s ease;
+    }
+
+    .lesson-item.open .chevron {
+      transform: rotate(180deg);
+      color: var(--navy);
+    }
+
+    .lesson-body {
+      display: none;
+      padding: 0 20px 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-item.open .lesson-body {
+      display: block;
+    }
+
+    .lesson-desc {
+      margin-top: 16px;
+      font-size: 0.94rem;
+      color: var(--mid-gray);
+    }
+
+    .resources-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* Botão do Documento */
+    .doc-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      border-radius: 10px;
+    }
+
+    .doc-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 0.94rem;
+      color: var(--dark-gray);
+    }
+
+    .btn-doc {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--lime);
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(11, 34, 59, 0.1);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .btn-doc:hover {
+      background: var(--lime-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Container de Mídia (Vídeo ou Áudio) */
+    .media-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .media-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Thumbnail / Player do YouTube sem Erro 153 */
+    .yt-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0B223B;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(11, 34, 59, 0.14);
+    }
+
+    .yt-card img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .yt-card:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.85);
+    }
+
+    .yt-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11, 34, 59, 0.78) 0%, rgba(11, 34, 59, 0.15) 55%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .yt-play-btn {
+      width: 68px;
+      height: 48px;
+      background: #ff0000;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .yt-card:hover .yt-play-btn {
+      transform: scale(1.1);
+      background: #dc2626;
+    }
+
+    .yt-play-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #ffffff;
+      margin-left: 3px;
+    }
+
+    .yt-caption {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .yt-pill {
+      background: var(--lime);
+      color: var(--navy);
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    /* Player de Áudio mais alto para não cortar controles */
+    .audio-iframe {
+      width: 100%;
+      height: 150px;
+      border: 0;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .btn-media-fallback {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--navy);
+      text-decoration: none;
+    }
+
+    .btn-media-fallback:hover {
+      text-decoration: underline;
+    }
+
+    /* Toast discreto quando atualiza em segundo plano */
+    .update-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1100;
+      background: var(--navy);
+      color: #ffffff;
+      border-left: 4px solid var(--lime);
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(7, 23, 41, 0.25);
+      transform: translateY(140%);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .update-toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 600px) {
+      header.hero-header {
+        padding: 28px 16px 34px;
+      }
+      .hero-logo {
+        height: 26px;
+      }
+      header.hero-header h1 {
+        font-size: 1.45rem;
+      }
+      main {
+        padding: 44px 0 60px;
+      }
+      .lesson-header {
+        padding: 15px;
+      }
+      .lesson-title {
+        font-size: 0.96rem;
+      }
+      .btn-doc {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA FIXA COMPACTA AO ROLAR PARA BAIXO -->
+  <div id="sticky-bar" class="sticky-bar" aria-hidden="true">
+    <div class="sticky-inner">
+      <div class="sticky-brand">
+        <img
+          src="https://assets.eklesia.com.br/EK3695/PaginaWeb/1_d4325469-39e7-49b0-8241-33dce1e31232.png"
+          alt="Logo"
+          class="sticky-logo"
+        />
+        <div class="sticky-title" id="sticky-title"><span>DISCIPULADO</span> • Roteiros</div>
+      </div>
+      <button type="button" class="sticky-action-btn" id="sticky-btn" onclick="acaoBarraFixa()">
+        ↑ Voltar ao topo
+      </button>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO PRINCIPAL -->
+  <header class="hero-header" id="hero-header">
+    <div class="header-inner">
+      <div class="hero-top-row">
+        <img
+          src="https://assets.eklesia.com.br/EK3695/PaginaWeb/1_d4325469-39e7-49b0-8241-33dce1e31232.png"
+          alt="Logo"
+          class="hero-logo"
+        />
+        <span class="badge-top">Bíblia de Estudo do Discipulado</span>
+      </div>
+      <h1><span>DISCIPULADO</span> • Roteiros</h1>
+      <p>Selecione um módulo abaixo para acessar o roteiro dos conteúdos, documentos de estudo, vídeos e áudios.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ESTADO DE CARREGAMENTO (SÓ APARECE SE NÃO HOUVER CACHE LOCAL) -->
+    <div id="loading-box" class="state-box">
+      <div class="spinner"></div>
+      <div class="state-title">Carregando módulos da planilha...</div>
+      <div class="state-desc">Buscando automaticamente todas as abas e conteúdos configurados.</div>
+    </div>
+
+    <!-- ESTADO DE ERRO / CONFIGURAÇÃO -->
+    <div id="error-box" class="state-box hidden">
+      <div class="state-title">⚠️ Não foi possível carregar os dados da planilha</div>
+      <div class="state-desc" id="error-message">Verifique se a URL da API do Google Apps Script está preenchida corretamente no código e publicada com acesso para "Qualquer pessoa".</div>
+    </div>
+
+    <!-- TELA 1: HOME CENTRAL (LISTA DE CURSOS / MÓDULOS) -->
+    <section id="home-view" class="hidden">
+      <div class="section-header">
+        <div class="section-title">📚 Módulos Disponíveis</div>
+        <div class="header-meta-group">
+          <span class="sync-status" id="sync-status" title="Sincronização em segundo plano">
+            <span class="sync-dot checking" id="sync-dot"></span>
+            <span id="sync-text">Verificando...</span>
+          </span>
+          <span class="count-pill" id="modules-count">0 módulos</span>
+        </div>
+      </div>
+      <div class="courses-grid" id="courses-grid"></div>
+    </section>
+
+    <!-- TELA 2: PÁGINA INTERNA DO CURSO SELECIONADO -->
+    <section id="course-view" class="hidden">
+      <button class="back-btn" onclick="voltarParaHome()">
+        ← Voltar para todos os módulos
+      </button>
+
+      <div class="course-header-box">
+        <span class="course-code" id="detail-code">Módulo</span>
+        <h2 id="detail-title">Título do Módulo</h2>
+        <p id="detail-desc">Roteiro de conteúdos e materiais de apoio.</p>
+      </div>
+
+      <div class="lessons-list" id="lessons-list"></div>
+    </section>
+  </main>
+
+  <!-- NOTIFICAÇÃO DISCRETA DE ATUALIZAÇÃO -->
+  <div id="update-toast" class="update-toast" role="status" aria-live="polite">
+    ✓ Conteúdos atualizados com a planilha
+  </div>
+
+  <script>
+    // =========================================================================
+    // CONFIGURAÇÃO DA PLANILHA E DO SISTEMA DE CACHE LOCAL
+    // =========================================================================
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOyPL-57ha6s7TlW3r1CpTZxdVmuA8-LV90TlkBBrpkGBrt4nFKpoo0TZEfxNESwImfQ/exec";
+    const CACHE_KEY = "discipulado_roteiros_cache_v1";
+
+    let CURSOS = [];
+    let assinaturaAtual = "";
+    let telaAtual = "home"; // "home" ou "curso"
+    let cursoAtualAba = null;
+    let cursoAtualTitulo = "";
+
+    // =========================================================================
+    // CONTROLE DA BARRA FIXA COMPACTA AO ROLAR
+    // =========================================================================
+    function atualizarBarraFixa() {
+      const stickyBar = document.getElementById("sticky-bar");
+      const heroHeader = document.getElementById("hero-header");
+      const stickyTitle = document.getElementById("sticky-title");
+      const stickyBtn = document.getElementById("sticky-btn");
+
+      const limiteRolagem = heroHeader ? heroHeader.offsetHeight - 20 : 120;
+
+      if (window.scrollY > limiteRolagem) {
+        stickyBar.classList.add("visible");
+        stickyBar.setAttribute("aria-hidden", "false");
+      } else {
+        stickyBar.classList.remove("visible");
+        stickyBar.setAttribute("aria-hidden", "true");
+      }
+
+      if (telaAtual === "curso") {
+        stickyTitle.innerHTML = `<span>DISCIPULADO</span> • ${cursoAtualTitulo}`;
+        stickyBtn.innerHTML = "← Voltar para a Home";
+      } else {
+        stickyTitle.innerHTML = `<span>DISCIPULADO</span> • Roteiros`;
+        stickyBtn.innerHTML = "↑ Voltar ao topo";
+      }
+    }
+
+    function acaoBarraFixa() {
+      if (telaAtual === "curso") {
+        voltarParaHome();
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    window.addEventListener("scroll", atualizarBarraFixa, { passive: true });
+
+    // =========================================================================
+    // DETECÇÃO AUTOMÁTICA DE MÍDIA (VÍDEO YOUTUBE vs ÁUDIO DRIVE/MP3)
+    // =========================================================================
+    function identificarTipoMidia(url) {
+      if (!url || !url.trim()) return "nenhum";
+      const u = url.toLowerCase();
+      if (u.includes("youtube.com") || u.includes("youtu.be")) {
+        return "video";
+      }
+      if (u.includes("drive.google.com") || u.endsWith(".mp3") || u.endsWith(".m4a") || u.endsWith(".wav") || u.endsWith(".ogg")) {
+        return "audio";
+      }
+      return "link";
+    }
+
+    function extrairIdYoutube(url) {
+      if (!url) return null;
+      const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts|live)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+      const match = url.match(regExp);
+      return match ? match[1] : null;
+    }
+
+    function extrairIdDrive(url) {
+      if (!url) return null;
+      const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      return match ? match[1] : null;
+    }
+
+    // =========================================================================
+    // PROCESSAMENTO E CACHE (STALE-WHILE-REVALIDATE)
+    // =========================================================================
+    function processarDadosPlanilha(data) {
+      const mapaExtra = data.mapaNomes || {};
+
+      return data.modulos
+        .filter(m => {
+          const abaNorm = (m.aba || "").trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+          return abaNorm !== "modulos" && abaNorm !== "modulo";
+        })
+        .map(m => {
+          const conteudosFiltrados = (m.encontros || []).filter(enc => {
+            const tituloNorm = (enc.aula || "").trim().toLowerCase();
+            return !tituloNorm.startsWith("assessoria");
+          });
+
+          const chaveAba = String(m.aba || "").trim().toLowerCase();
+          const tituloFinal = mapaExtra[chaveAba] || m.titulo || ("Módulo " + m.aba);
+
+          return {
+            ...m,
+            titulo: tituloFinal,
+            encontros: conteudosFiltrados
+          };
+        });
+    }
+
+    function lerCacheLocal() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.cursos) && parsed.cursos.length > 0) {
+          return parsed;
+        }
+      } catch (e) {
+        // Ignora erro caso localStorage esteja bloqueado no iframe
+      }
+      return null;
+    }
+
+    function salvarCacheLocal(cursosProcessados, assinatura) {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          assinatura: assinatura,
+          atualizadoEm: Date.now(),
+          cursos: cursosProcessados
+        }));
+      } catch (e) {
+        // Ignora erro de quota ou bloqueio de storage
+      }
+    }
+
+    function atualizarStatusSync(estado, texto) {
+      const dot = document.getElementById("sync-dot");
+      const label = document.getElementById("sync-text");
+      if (!dot || !label) return;
+
+      if (estado === "checking") {
+        dot.classList.add("checking");
+      } else {
+        dot.classList.remove("checking");
+      }
+      label.textContent = texto;
+    }
+
+    function mostrarToastAtualizacao() {
+      const toast = document.getElementById("update-toast");
+      if (!toast) return;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3500);
+    }
+
+    async function inicializarPlataforma() {
+      const loadingBox = document.getElementById("loading-box");
+      const errorBox = document.getElementById("error-box");
+      const homeView = document.getElementById("home-view");
+
+      // 1. Verifica se já existe cache salvo para exibir instantaneamente
+      const cache = lerCacheLocal();
+      const temCacheValido = Boolean(cache);
+
+      if (temCacheValido) {
+        CURSOS = cache.cursos;
+        assinaturaAtual = cache.assinatura || JSON.stringify(CURSOS);
+        loadingBox.classList.add("hidden");
+        renderizarHome();
+        homeView.classList.remove("hidden");
+        atualizarBarraFixa();
+        atualizarStatusSync("checking", "Verificando atualizações...");
+      }
+
+      // 2. Busca os dados mais recentes da planilha em segundo plano
+      try {
+        const urlSemCache = APPS_SCRIPT_URL + "?t=" + Date.now();
+        const response = await fetch(urlSemCache);
+        if (!response.ok) throw new Error("Erro HTTP: " + response.status);
+        const data = await response.json();
+
+        if (!data || !Array.isArray(data.modulos)) {
+          throw new Error("Formato de resposta inválido da planilha.");
+        }
+
+        const novosCursos = processarDadosPlanilha(data);
+        const novaAssinatura = JSON.stringify(novosCursos);
+
+        // 3. Compara se houve qualquer mudança em relação ao cache
+        if (!temCacheValido) {
+          CURSOS = novosCursos;
+          assinaturaAtual = novaAssinatura;
+          salvarCacheLocal(CURSOS, assinaturaAtual);
+
+          loadingBox.classList.add("hidden");
+          renderizarHome();
+          homeView.classList.remove("hidden");
+          atualizarBarraFixa();
+          atualizarStatusSync("ok", "Sincronizado");
+        } else if (novaAssinatura !== assinaturaAtual) {
+          // Houve alteração na planilha: atualiza cache e interface automaticamente
+          CURSOS = novosCursos;
+          assinaturaAtual = novaAssinatura;
+          salvarCacheLocal(CURSOS, assinaturaAtual);
+
+          renderizarHome();
+          if (telaAtual === "curso" && cursoAtualAba !== null) {
+            const idxAtualizado = CURSOS.findIndex(c => String(c.aba) === String(cursoAtualAba));
+            if (idxAtualizado !== -1) {
+              abrirCurso(idxAtualizado, true);
+            } else {
+              voltarParaHome();
+            }
+          }
+          atualizarStatusSync("ok", "Atualizado agora");
+          mostrarToastAtualizacao();
+        } else {
+          // Nenhuma alteração detectada: mantém a página intacta
+          atualizarStatusSync("ok", "Atualizado");
+        }
+      } catch (err) {
+        if (temCacheValido) {
+          // Se falhar a rede mas já temos cache, mantém a tela funcionando normalmente
+          atualizarStatusSync("ok", "Modo offline (cache)");
+        } else {
+          loadingBox.classList.add("hidden");
+          document.getElementById("error-message").textContent =
+            "Não foi possível conectar à planilha (" + err.message + "). Verifique a URL do Apps Script e as permissões de acesso.";
+          errorBox.classList.remove("hidden");
+        }
+      }
+    }
+
+    // =========================================================================
+    // RENDERIZAÇÃO DA HOME E DAS PÁGINAS INTERNAS
+    // =========================================================================
+    function renderizarHome() {
+      const grid = document.getElementById("courses-grid");
+      const countPill = document.getElementById("modules-count");
+      grid.innerHTML = "";
+
+      countPill.textContent = `${CURSOS.length} ${CURSOS.length === 1 ? "módulo" : "módulos"}`;
+
+      CURSOS.forEach((curso, idx) => {
+        const totalConteudos = curso.encontros ? curso.encontros.length : 0;
+        const nomeModulo = curso.titulo || ("Módulo " + curso.aba);
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.onclick = () => abrirCurso(idx);
+
+        card.innerHTML = `
+          <div>
+            <span class="course-code">Módulo ${curso.aba}</span>
+            <h2>${nomeModulo}</h2>
+          </div>
+          <div class="course-footer">
+            <span class="course-meta">${totalConteudos} ${totalConteudos === 1 ? "conteúdo" : "conteúdos"}</span>
+            <span>Acessar →</span>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function abrirCurso(index, preservarScroll = false) {
+      const curso = CURSOS[index];
+      if (!curso) return;
+
+      const nomeModulo = curso.titulo || ("Módulo " + curso.aba);
+      telaAtual = "curso";
+      cursoAtualAba = curso.aba;
+      cursoAtualTitulo = nomeModulo;
+
+      document.getElementById("detail-code").textContent = "Módulo " + curso.aba;
+      document.getElementById("detail-title").textContent = nomeModulo;
+      document.getElementById("detail-desc").textContent =
+        "Selecione um conteúdo abaixo para abrir o documento e assistir ao vídeo ou ouvir o áudio.";
+
+      const list = document.getElementById("lessons-list");
+      list.innerHTML = "";
+
+      (curso.encontros || []).forEach((enc, idx) => {
+        const tituloAula = enc.aula || ("Conteúdo " + (idx + 1));
+        const tipoMidia = identificarTipoMidia(enc.midia);
+        const numeroBadge = String(idx + 1).padStart(2, "0");
+
+        const item = document.createElement("div");
+        item.className = "lesson-item";
+
+        let badgesHtml = "";
+        if (enc.documento) badgesHtml += `<span class="mini-badge">📄 Documento</span>`;
+        if (tipoMidia === "video") badgesHtml += `<span class="mini-badge video">▶ Vídeo</span>`;
+        if (tipoMidia === "audio") badgesHtml += `<span class="mini-badge audio">🎧 Áudio</span>`;
+        if (tipoMidia === "link") badgesHtml += `<span class="mini-badge">🔗 Mídia</span>`;
+
+        let docHtml = "";
+        if (enc.documento) {
+          docHtml = `
+            <div class="doc-box">
+              <div class="doc-info">
+                <span>📄</span>
+                <span>Documento de Estudo</span>
+              </div>
+              <a href="${enc.documento}" target="_blank" rel="noopener noreferrer" class="btn-doc">
+                Abrir Documento ↗
+              </a>
+            </div>
+          `;
+        }
+
+        let midiaHtml = "";
+        if (tipoMidia === "video") {
+          const ytId = extrairIdYoutube(enc.midia);
+          if (ytId) {
+            const thumbUrl = `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`;
+            midiaHtml = `
+              <div class="media-box">
+                <div class="media-label">🎬 Vídeo do Conteúdo</div>
+                <a href="${enc.midia}" target="_blank" rel="noopener noreferrer" class="yt-card" title="Assistir no YouTube">
+                  <img src="${thumbUrl}" alt="${tituloAula}" loading="lazy" />
+                  <div class="yt-overlay">
+                    <div class="yt-play-btn">
+                      <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </div>
+                    <div class="yt-caption">
+                      <span>Clique para assistir ao vídeo</span>
+                      <span class="yt-pill">YouTube ↗</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            `;
+          } else {
+            midiaHtml = `
+              <div class="doc-box">
+                <div class="doc-info">
+                  <span>🎬</span>
+                  <span>Vídeo / Playlist do Conteúdo</span>
+                </div>
+                <a href="${enc.midia}" target="_blank" rel="noopener noreferrer" class="btn-doc">
+                  Assistir no YouTube ↗
+                </a>
+              </div>
+            `;
+          }
+        } else if (tipoMidia === "audio") {
+          const driveId = extrairIdDrive(enc.midia);
+          let playerHtml = "";
+          if (driveId) {
+            playerHtml = `<iframe class="audio-iframe" src="https://drive.google.com/file/d/${driveId}/preview" allow="autoplay" loading="lazy"></iframe>`;
+          } else {
+            playerHtml = `<audio controls style="width: 100%;"><source src="${enc.midia}">Seu navegador não suporta áudio embutido.</audio>`;
+          }
+          midiaHtml = `
+            <div class="media-box">
+              <div class="media-label">🎧 Áudio do Conteúdo</div>
+              ${playerHtml}
+              <a href="${enc.midia}" target="_blank" rel="noopener noreferrer" class="btn-media-fallback">
+                Abrir áudio em nova aba ↗
+              </a>
+            </div>
+          `;
+        } else if (tipoMidia === "link") {
+          midiaHtml = `
+            <div class="doc-box">
+              <div class="doc-info">
+                <span>🔗</span>
+                <span>Conteúdo Complementar</span>
+              </div>
+              <a href="${enc.midia}" target="_blank" rel="noopener noreferrer" class="btn-doc">
+                Acessar Mídia ↗
+              </a>
+            </div>
+          `;
+        }
+
+        item.innerHTML = `
+          <button class="lesson-header" type="button" onclick="toggleEncontro(this)">
+            <div class="lesson-title-wrap">
+              <div class="lesson-number">${numeroBadge}</div>
+              <div>
+                <div class="lesson-title">${tituloAula}</div>
+                ${badgesHtml ? `<div class="lesson-badges">${badgesHtml}</div>` : ""}
+              </div>
+            </div>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="lesson-body">
+            ${enc.observacao ? `<p class="lesson-desc">${enc.observacao}</p>` : ""}
+            ${(docHtml || midiaHtml) ? `<div class="resources-grid">${docHtml}${midiaHtml}</div>` : ""}
+          </div>
+        `;
+
+        list.appendChild(item);
+      });
+
+      document.getElementById("home-view").classList.add("hidden");
+      document.getElementById("course-view").classList.remove("hidden");
+      atualizarBarraFixa();
+      if (!preservarScroll) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    function toggleEncontro(btn) {
+      btn.parentElement.classList.toggle("open");
+    }
+
+    function voltarParaHome() {
+      telaAtual = "home";
+      cursoAtualAba = null;
+      cursoAtualTitulo = "";
+      document.getElementById("lessons-list").innerHTML = "";
+      document.getElementById("course-view").classList.add("hidden");
+      document.getElementById("home-view").classList.remove("hidden");
+      atualizarBarraFixa();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    inicializarPlataforma();
+  </script>
+</body>
+</html>
